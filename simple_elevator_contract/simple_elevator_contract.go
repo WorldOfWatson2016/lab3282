@@ -53,9 +53,9 @@ type AssetState struct {
     AssetID        *string       `json:"assetID,omitempty"`
     Weight         *float64      `json:"weight,omitempty"`
     Temperature    *float64      `json:"temperature,omitempty"`
-	Speed          *float64      `json:"speed,omitempty"`
+    Speed          *float64      `json:"speed,omitempty"`
     System         *System       `json:"system,omitempty"`
-	Power          *float64      `json:"power,omitempty"`
+    Power          *float64      `json:"power,omitempty"`
 }
 
 var contractState = ContractState{MYVERSION}
