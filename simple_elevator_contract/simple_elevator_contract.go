@@ -12,8 +12,8 @@ Unless required by applicable law or agreed to in writing, software distributed 
 See the License for the specific language governing permissions and limitations under the License.
 
 
-// IoT Blockchain Simple Smart Contract v 1.0
-// This is a simple contract that creates a CRUD interface to 
+// IoT Blockchain Simple Elevator Smart Contract v 1.0
+// This is a simple elevator contract that creates a CRUD interface to 
 // create, read, update and delete an asset
 
 package main
