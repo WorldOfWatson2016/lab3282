@@ -414,4 +414,4 @@ var schemas = `
 			"type": "object"
 		}
 	}
-}
+}`

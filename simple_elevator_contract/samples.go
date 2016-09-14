@@ -28,4 +28,4 @@ var samples = `
 		"speed": 1791,
 		"power": 10.23
 	}
-}
+}`
