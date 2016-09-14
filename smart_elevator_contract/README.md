@@ -224,7 +224,7 @@ return nil, erval
 If the asset doesn't exist, it is classified as a new asset and is created. If the asset does exists, the new record is classified as an update and the asset is updated with the new values that are retrieved. For example, if, in the new record, only temperature and location values are submitted, only those values of the asset get updated in the shim. If carrier data exists, it is maintained in the state that it was previously received.
 
 - `
-The first step of the `createOrupdateAsset` common function is a call to `validateInput`, which is explained later in`â€˜Validate input data`.
+The first step of the `createOrupdateAsset` common function is a call to `validateInput`, which is explained later in`‘Validate input data`.
 
 ```go
 stateIn, err = t.`validateInput`(args)
