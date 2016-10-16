@@ -39,7 +39,7 @@ import (
 const MYVERSION string = "4.0"
 
 // DEFAULTNICKNAME is used when a contract is initialized without giving it a nickname
-const DEFAULTNICKNAME string = "TRADELANE" 
+const DEFAULTNICKNAME string = "ELEVATOR" 
 
 // CONTRACTSTATEKEY is used to store contract state, including version, nickname and activeAssets
 const CONTRACTSTATEKEY string = "ContractStateKey"
