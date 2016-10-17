@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<script src="js/deploy.js"></script>
+<head>
+	<title>IBM - World of Watson - 3282A</title>
+	<link rel='stylesheet' href='stylesheets/vendor/bootstrap.min.css'/>
+	<link rel='stylesheet' href='stylesheets/vendor/bootstrap-slider.min.css'/>
+	<link rel='stylesheet' href='stylesheets/main.css'/>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+    <div class="wow-header-image">
+	<div class="row">
+	          <img src="images/header.jpg" id="imgbg" class="img-responsive"> 
+	</div>
+    </div>
+	<nav class="navbar navbar-static-top" role="navigation" aria-label="Watson IoT Platform sites">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="iot-root-navigation">
+					<div class="navbar-header">
+						<span class="navbar-brand iotf-brand"><a href="/">IBM <strong>Watson IoT</strong> Platform</a></span>
+						<span class="navbar-title iotf-brand">Deploy Blockchain Contract</span>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="iot-input-group">
+					<div class="credentials-container">
+						<h3>Deploy Elevator Contract:
+						</h3>
+						<h3>
+							<div class="iot-credentials-label">Peer URL</div><input class="iot-credentials-input" id="peerUrl" type="text" style="color:#888" value="https://peerurl:444" onfocus="inputFocus(this)" onblur="inputBlur(this)"/><br>
+							<div class="iot-credentials-label">User Name</div><input class="iot-credentials-input" id="userName" type="text" value="" /><br>
+							<div class="iot-credentials-label">Password</div><input class="iot-credentials-input" id="password" type="text" value="" /><br>
+							<div class="iot-credentials-label">Deploy Contract</div><input class="iot-credentials-input" id="contract" type="text" value="https://github.com/WorldOfWatson2016/lab3282/simple_elevator_contract" /><br><br>
+							<input class="iot-deploy-button" type="button" value="Register" id="button-deploy-blockchain" onclick="return registerUser()"/>
+							<input class="iot-deploy-button" type="button" value="Deploy" id="button-deploy-blockchain" onclick="return deployContract()"/>
+						</h3>
+					</div>
+				</div>
+				<hr>
+			</div>
+		</div>
+	</div>
+	<!-- Please do not change the order of these links as some depend on each other -->
+	<script type="text/javascript" src="js/vendor/jquery.min.js"></script>
+	<script type="text/javascript" src="js/vendor/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/vendor/bootstrap-slider.min.js"></script>
+	<script type="text/javascript" src="js/vendor/mqttws31.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>
