@@ -11,9 +11,17 @@ Unless required by applicable law or agreed to in writing, software distributed 
 See the License for the specific language governing permissions and limitations under the License.
 
 Contributors:
-Rahul Gupta - World of Watson 2016
-Leucir Marin - World of Watson 2016
+Kim Letkeman - Initial Contribution
 */
+
+// ************************************
+// Alerts package
+// KL 16 Feb 2016 Initial alert package
+// KL 22 Feb 2016 add AllClear method and associated constant
+// KL 18 Apr 2016 Adapt new external JSON alerts (names instead of booleans) from orig 3.1/4.0
+// KL 30 Jun 2016 Copy new function to clear the raised and cleared status from
+//                simple aviation contract 4.2sa
+// ************************************
 
 package main
 
@@ -138,6 +146,16 @@ func (a *AlertStatusInternal) clearAlert (alert Alerts) {
         // inactive alarm, as it makes it much more difficult to track
         //  the exact moments of transition
         a.Cleared[alert] = false
+    }
+}
+
+func (a *AlertStatusInternal) clearRaisedAndClearedStatus () {
+    for i := range a.Active {
+        if a.Active[i] {
+            a.Raised[i] = false
+        } else {
+            a.Cleared[i] = false
+        }
     }
 }
 

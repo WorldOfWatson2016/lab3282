@@ -11,9 +11,14 @@ Unless required by applicable law or agreed to in writing, software distributed 
 See the License for the specific language governing permissions and limitations under the License.
 
 Contributors:
-Rahul Gupta - World of Watson 2016
-Leucir Marin - World of Watson 2016
+Kim Letkeman - Initial Contribution
 */
+
+
+// Recent state management
+// v1   KL 21 Feb 2016 Initial split from contract
+// v2   KL 11 Mar 2016 All state stored in the ledger.
+// v3   KL 15 Mar 2016 read cleaned up and returns one level of escaping now
 
 package main // sitting beside the main file for now
 
@@ -78,12 +83,14 @@ func PUTRecentStatesToLedger(stub *shim.ChaincodeStub, state RecentStates) (erro
         log.Criticalf("Failed to marshal recent states: %s", err)
         return err
     }
+
+	log.Debugf("PUTRecentStatesToLedger: putting to state ==>%s<==", string(recentStatesJSON))
+
     err = stub.PutState(RECENTSTATESKEY, recentStatesJSON)
     if err != nil {
         log.Criticalf("Failed to PUTSTATE recent states: %s", err)
         return err
     } 
-    log.Debugf("PUTRecentStates: %#v", state)
     return nil 
 }
 

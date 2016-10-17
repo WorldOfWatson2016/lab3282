@@ -11,9 +11,13 @@ Unless required by applicable law or agreed to in writing, software distributed 
 See the License for the specific language governing permissions and limitations under the License.
 
 Contributors:
-Rahul Gupta - World of Watson 2016
-Leucir Marin - World of Watson 2016
+Howard McKinney- Initial Contribution
+Kim Letkeman - Initial Contribution
 */
+
+
+// v3.0 HM 25 Feb 2016 Moved the asset state history code into a separate package.
+// v3.0.1 HM 03 Mar 2016 Store the state history in descending order.  
 
 package main
 
@@ -39,6 +43,8 @@ func createStateHistory(stub *shim.ChaincodeStub, assetID string, stateJSON stri
 	if err != nil {
 		return err
 	}
+
+	log.Debugf("CreateStateHistory: putting to state ==>%s<==", string(assetState))
 
 	return stub.PutState(ledgerKey, []byte(assetState))
 
@@ -70,6 +76,8 @@ func updateStateHistory(stub *shim.ChaincodeStub, assetID string, stateJSON stri
 	if err != nil {
 		return err
 	}
+
+	log.Debugf("UpdateStateHistory: putting to state ==>%s<==", string(assetState))
 
 	return stub.PutState(ledgerKey, []byte(assetState))
 

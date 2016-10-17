@@ -11,9 +11,16 @@ Unless required by applicable law or agreed to in writing, software distributed 
 See the License for the specific language governing permissions and limitations under the License.
 
 Contributors:
-Rahul Gupta - World of Watson 2016
-Leucir Marin - World of Watson 2016
+Kim Letkeman - Initial Contribution
 */
+
+
+// v3.0 HM 25 Feb 2016 Moved the asset state history code into a separate package.
+// v3.0.1 HM 03 Mar 2016 Store the state history in descending order.
+// v3.0.2 KL 07 Mar 2016 Reduce memory garbage in updateStateHistory 
+// v3.0.3 KL             backported from original 3.1/4.0 
+// v4.0 KL 17 Mar 2016 Update version number to 4.0 for Hyperledger compatibility.
+//                     Clean up lint issues.
 
 package main
 
@@ -29,7 +36,7 @@ import (
 // Major for API break, Minor when adding a feature or behavior, Fix when fixing a bug.
 // If the init comes in with the wrong major version, then  we might consider exiting with
 // an error.
-const MYVERSION string = "4.0"
+const MYVERSION string = "4.3"
 
 // DEFAULTNICKNAME is used when a contract is initialized without giving it a nickname
 const DEFAULTNICKNAME string = "ELEVATOR" 
@@ -85,13 +92,15 @@ func PUTContractStateToLedger(stub *shim.ChaincodeStub, state ContractState) (er
         log.Critical(err)
         return err
     }
+
+	log.Debugf("PUTContractStateToLedger: putting to state ==>%s<==", string(contractStateJSON))
+
     err = stub.PutState(CONTRACTSTATEKEY, contractStateJSON)
     if err != nil {
         err = fmt.Errorf("Failed to PUTSTATE contract state: %s", err)
         log.Critical(err)
         return err
     } 
-    log.Debugf("PUTContractState: %#v", state)
     return nil 
 }
 

@@ -4,48 +4,45 @@ var schemas = `
 {
     "API": {
         "createAsset": {
-            "description": "Create an asset. One argument, a JSON encoded event. AssetID is required with zero or more writable properties. Establishes an initial asset state.",
+            "description": "Create an asset. One argument, a JSON encoded event. The 'assetID' property is required with zero or more writable properties. Establishes an initial asset state.",
             "properties": {
                 "args": {
                     "description": "args are JSON encoded strings",
                     "items": {
-                        "description": "A set of fields that constitute the writable fields in an asset's state. AssetID is mandatory along with at least one writable field. In this contract pattern, a partial state is used as an event.",
+                        "description": "The set of writable properties that define an asset's state. For asset creation, the only mandatory property is the 'assetID'. Updates should include at least one other writable property. This exemplifies the IoT contract pattern 'partial state as event'.",
                         "properties": {
                             "assetID": {
                                 "description": "The ID of a managed asset. The resource focal point for a smart contract.",
                                 "type": "string"
                             },
-                            "power": {
-                                "description": "Power consumption by the asset in KwH.",
-                                "type": "number"
+                            "carrier": {
+                                "description": "transport entity currently in possession of asset",
+                                "type": "string"
                             },
-                            "speed": {
-                                "description": "Speed of the asset in feet/second.",
-                                "type": "number"
+                            "extension": {
+                                "description": "Application-managed state. Opaque to contract.",
+                                "properties": {},
+                                "type": "object"
                             },
-                            "system": {
-                                "description": "Properties of micro computer installed in the elevator",
+                            "location": {
+                                "description": "A geographical coordinate",
                                 "properties": {
-                                    "cpu": {
+                                    "latitude": {
                                         "type": "number"
                                     },
-                                    "memory": {
+                                    "longitude": {
                                         "type": "number"
                                     }
                                 },
                                 "type": "object"
                             },
                             "temperature": {
-                                "description": "Temperature of the asset in FAHRENHEIT.",
+                                "description": "Temperature of the asset in CELSIUS.",
                                 "type": "number"
                             },
-                            "threshold": {
-                                "description": "Temperature threshold inclusive in FAHRENHEIT.",
-                                "type": "number"
-                            },
-                            "weight": {
-                                "description": "Weight of the Asset in Lb",
-                                "type": "number"
+                            "timestamp": {
+                                "description": "Device timestamp.",
+                                "type": "string"
                             }
                         },
                         "required": [
@@ -63,7 +60,8 @@ var schemas = `
                         "createAsset"
                     ],
                     "type": "string"
-                }
+                },
+                "method": "invoke"
             },
             "type": "object"
         },
@@ -83,17 +81,18 @@ var schemas = `
                         "deleteAllAssets"
                     ],
                     "type": "string"
-                }
+                },
+                "method": "invoke"
             },
             "type": "object"
         },
         "deleteAsset": {
-            "description": "Delete an asset, its history, and any recent state activity. Argument is a JSON encoded string containing only an assetID.",
+            "description": "Delete an asset, its history, and any recent state activity. Argument is a JSON encoded string containing only an 'assetID'.",
             "properties": {
                 "args": {
                     "description": "args are JSON encoded strings",
                     "items": {
-                        "description": "An object containing only an assetID for use as an argument to read or delete.",
+                        "description": "An object containing only an 'assetID' for use as an argument to read or delete.",
                         "properties": {
                             "assetID": {
                                 "description": "The ID of a managed asset. The resource focal point for a smart contract.",
@@ -112,17 +111,18 @@ var schemas = `
                         "deleteAsset"
                     ],
                     "type": "string"
-                }
+                },
+                "method": "invoke"
             },
             "type": "object"
         },
         "deletePropertiesFromAsset": {
-            "description": "Delete one or more properties from an asset. Argument is a JSON encoded string containing an AssetID and an array of qualified property names. An example would be {'assetID':'A1',['event.common.carrier', 'event.customer.temperature']} and the result of that invoke would be the removal of the carrier field and the temperature field with a recalculation of the alert and compliance status.",
+            "description": "Delete one or more properties from an asset's state. Argument is a JSON encoded string containing an 'assetID' and an array of qualified property names. For example, in an event object containing common and custom properties objects, the argument might look like {'assetID':'A1',['common.location', 'custom.carrier', 'custom.temperature']} and the result of that invoke would be the removal of the location, carrier and temperature properties. The missing temperature would clear a 'OVERTEMP' alert when the rules engine runs.",
             "properties": {
                 "args": {
                     "description": "args are JSON encoded strings",
                     "items": {
-                        "description": "Requested assetID with a list or qualified property names.",
+                        "description": "Requested 'assetID' with a list of qualified property names.",
                         "properties": {
                             "assetID": {
                                 "description": "The ID of a managed asset. The resource focal point for a smart contract.",
@@ -152,7 +152,8 @@ var schemas = `
                         "deletePropertiesFromAsset"
                     ],
                     "type": "string"
-                }
+                },
+                "method": "invoke"
             },
             "type": "object"
         },
@@ -165,7 +166,7 @@ var schemas = `
                         "description": "event sent to init on deployment",
                         "properties": {
                             "nickname": {
-                                "default": "ELEVATOR",
+                                "default": "TRADELANE",
                                 "description": "The nickname of the current contract",
                                 "type": "string"
                             },
@@ -189,12 +190,13 @@ var schemas = `
                         "init"
                     ],
                     "type": "string"
-                }
+                },
+                "method": "deploy"
             },
             "type": "object"
         },
         "readAllAssets": {
-            "description": "Returns the state of all assets as an array of JSON encoded strings. Accepts no arguments. For each managed asset, the state is read from the ledger and added to the returned array. Array is sorted by assetID.",
+            "description": "Returns the state of all assets as an array of JSON encoded strings. Accepts no arguments. For each managed asset, the state is read from the ledger and added to the returned array. Array is sorted by 'assetID'.",
             "properties": {
                 "args": {
                     "description": "accepts no arguments",
@@ -210,42 +212,116 @@ var schemas = `
                     ],
                     "type": "string"
                 },
+                "method": "query",
                 "result": {
                     "description": "an array of states, often for different assets",
                     "items": {
-                        "description": "A set of fields that constitute the complete asset state.",
+                        "description": "A set of properties that constitute a complete asset state. Includes event properties and any other calculated properties such as compliance related alerts.",
                         "properties": {
+                            "alerts": {
+                                "description": "Active means that the alert is in force in this state. Raised means that the alert became active as the result of the event that generated this state. Cleared means that the alert became inactive as the result of the event that generated this state.",
+                                "properties": {
+                                    "active": {
+                                        "items": {
+                                            "description": "Alerts are triggered or cleared by rules that are run against incoming events. This contract considers any active alert to created a state of non-compliance.",
+                                            "enum": [
+                                                "OVERTTEMP"
+                                            ],
+                                            "type": "string"
+                                        },
+                                        "minItems": 0,
+                                        "type": "array"
+                                    },
+                                    "cleared": {
+                                        "items": {
+                                            "description": "Alerts are triggered or cleared by rules that are run against incoming events. This contract considers any active alert to created a state of non-compliance.",
+                                            "enum": [
+                                                "OVERTTEMP"
+                                            ],
+                                            "type": "string"
+                                        },
+                                        "minItems": 0,
+                                        "type": "array"
+                                    },
+                                    "raised": {
+                                        "items": {
+                                            "description": "Alerts are triggered or cleared by rules that are run against incoming events. This contract considers any active alert to created a state of non-compliance.",
+                                            "enum": [
+                                                "OVERTTEMP"
+                                            ],
+                                            "type": "string"
+                                        },
+                                        "minItems": 0,
+                                        "type": "array"
+                                    }
+                                },
+                                "type": "object"
+                            },
                             "assetID": {
                                 "description": "The ID of a managed asset. The resource focal point for a smart contract.",
                                 "type": "string"
                             },
-                            "power": {
-                                "description": "Power consumption by the asset in KwH.",
-                                "type": "number"
+                            "carrier": {
+                                "description": "transport entity currently in possession of asset",
+                                "type": "string"
                             },
-                            "speed": {
-                                "description": "Speed of the asset in feet/second.",
-                                "type": "number"
+                            "compliant": {
+                                "description": "A contract-specific indication that this asset is compliant.",
+                                "type": "boolean"
                             },
-                            "system": {
-                                "description": "Properties of micro computer installed in the elevator",
+                            "extension": {
+                                "description": "Application-managed state. Opaque to contract.",
+                                "properties": {},
+                                "type": "object"
+                            },
+                            "lastEvent": {
+                                "description": "function and string parameter that created this state object",
                                 "properties": {
-                                    "cpu": {
+                                    "args": {
+                                        "items": {
+                                            "description": "parameters to the function, usually args[0] is populated with a JSON encoded event object",
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "function": {
+                                        "description": "function that created this state object",
+                                        "type": "string"
+                                    },
+                                    "redirectedFromFunction": {
+                                        "description": "function that originally received the event",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "location": {
+                                "description": "A geographical coordinate",
+                                "properties": {
+                                    "latitude": {
                                         "type": "number"
                                     },
-                                    "memory": {
+                                    "longitude": {
                                         "type": "number"
                                     }
                                 },
                                 "type": "object"
                             },
                             "temperature": {
-                                "description": "Temperature of the asset in FAHRENHEIT.",
+                                "description": "Temperature of the asset in CELSIUS.",
                                 "type": "number"
                             },
-                            "weight": {
-                                "description": "Weight of the Asset in Lb",
-                                "type": "number"
+                            "timestamp": {
+                                "description": "Device timestamp.",
+                                "type": "string"
+                            },
+                            "txntimestamp": {
+                                "description": "Transaction timestamp matching that in the blockchain.",
+                                "type": "string"
+                            },
+                            "txnuuid": {
+                                "description": "Transaction UUID matching that in the blockchain.",
+                                "type": "string"
                             }
                         },
                         "type": "object"
@@ -257,12 +333,12 @@ var schemas = `
             "type": "object"
         },
         "readAsset": {
-            "description": "Returns the state an asset. Argument is a JSON encoded string. AssetID is the only accepted property.",
+            "description": "Returns the state an asset. Argument is a JSON encoded string. The arg is an 'assetID' property.",
             "properties": {
                 "args": {
                     "description": "args are JSON encoded strings",
                     "items": {
-                        "description": "An object containing only an assetID for use as an argument to read or delete.",
+                        "description": "An object containing only an 'assetID' for use as an argument to read or delete.",
                         "properties": {
                             "assetID": {
                                 "description": "The ID of a managed asset. The resource focal point for a smart contract.",
@@ -282,40 +358,114 @@ var schemas = `
                     ],
                     "type": "string"
                 },
+                "method": "query",
                 "result": {
-                    "description": "A set of fields that constitute the complete asset state.",
+                    "description": "A set of properties that constitute a complete asset state. Includes event properties and any other calculated properties such as compliance related alerts.",
                     "properties": {
+                        "alerts": {
+                            "description": "Active means that the alert is in force in this state. Raised means that the alert became active as the result of the event that generated this state. Cleared means that the alert became inactive as the result of the event that generated this state.",
+                            "properties": {
+                                "active": {
+                                    "items": {
+                                        "description": "Alerts are triggered or cleared by rules that are run against incoming events. This contract considers any active alert to created a state of non-compliance.",
+                                        "enum": [
+                                            "OVERTTEMP"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "minItems": 0,
+                                    "type": "array"
+                                },
+                                "cleared": {
+                                    "items": {
+                                        "description": "Alerts are triggered or cleared by rules that are run against incoming events. This contract considers any active alert to created a state of non-compliance.",
+                                        "enum": [
+                                            "OVERTTEMP"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "minItems": 0,
+                                    "type": "array"
+                                },
+                                "raised": {
+                                    "items": {
+                                        "description": "Alerts are triggered or cleared by rules that are run against incoming events. This contract considers any active alert to created a state of non-compliance.",
+                                        "enum": [
+                                            "OVERTTEMP"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "minItems": 0,
+                                    "type": "array"
+                                }
+                            },
+                            "type": "object"
+                        },
                         "assetID": {
                             "description": "The ID of a managed asset. The resource focal point for a smart contract.",
                             "type": "string"
                         },
-                        "power": {
-                            "description": "Power consumption by the asset in KwH.",
-                            "type": "number"
+                        "carrier": {
+                            "description": "transport entity currently in possession of asset",
+                            "type": "string"
                         },
-                        "speed": {
-                            "description": "Speed of the asset in feet/second.",
-                            "type": "number"
+                        "compliant": {
+                            "description": "A contract-specific indication that this asset is compliant.",
+                            "type": "boolean"
                         },
-                        "system": {
-                            "description": "Properties of micro computer installed in the elevator",
+                        "extension": {
+                            "description": "Application-managed state. Opaque to contract.",
+                            "properties": {},
+                            "type": "object"
+                        },
+                        "lastEvent": {
+                            "description": "function and string parameter that created this state object",
                             "properties": {
-                                "cpu": {
+                                "args": {
+                                    "items": {
+                                        "description": "parameters to the function, usually args[0] is populated with a JSON encoded event object",
+                                        "type": "string"
+                                    },
+                                    "type": "array"
+                                },
+                                "function": {
+                                    "description": "function that created this state object",
+                                    "type": "string"
+                                },
+                                "redirectedFromFunction": {
+                                    "description": "function that originally received the event",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "location": {
+                            "description": "A geographical coordinate",
+                            "properties": {
+                                "latitude": {
                                     "type": "number"
                                 },
-                                "memory": {
+                                "longitude": {
                                     "type": "number"
                                 }
                             },
                             "type": "object"
                         },
                         "temperature": {
-                            "description": "Temperature of the asset in FAHRENHEIT.",
+                            "description": "Temperature of the asset in CELSIUS.",
                             "type": "number"
                         },
-                        "weight": {
-                            "description": "Weight of the Asset in Lb",
-                            "type": "number"
+                        "timestamp": {
+                            "description": "Device timestamp.",
+                            "type": "string"
+                        },
+                        "txntimestamp": {
+                            "description": "Transaction timestamp matching that in the blockchain.",
+                            "type": "string"
+                        },
+                        "txnuuid": {
+                            "description": "Transaction UUID matching that in the blockchain.",
+                            "type": "string"
                         }
                     },
                     "type": "object"
@@ -324,12 +474,12 @@ var schemas = `
             "type": "object"
         },
         "readAssetHistory": {
-            "description": "Requests a specified number of history states for an assets. Returns an array of states sorted with the most recent first. AssetID is required and count is optional. A missing count, a count of zero, or too large a count returns all existing history states.",
+            "description": "Requests a specified number of history states for an assets. Returns an array of states sorted with the most recent first. The 'assetID' property is required and the count property is optional. A missing count, a count of zero, or too large a count returns all existing history states.",
             "properties": {
                 "args": {
                     "description": "args are JSON encoded strings",
                     "items": {
-                        "description": "Requested assetID with item count.",
+                        "description": "Requested 'assetID' with item 'count'.",
                         "properties": {
                             "assetID": {
                                 "description": "The ID of a managed asset. The resource focal point for a smart contract.",
@@ -355,42 +505,116 @@ var schemas = `
                     ],
                     "type": "string"
                 },
+                "method": "query",
                 "result": {
                     "description": "an array of states for one asset sorted by timestamp with the most recent entry first",
                     "items": {
-                        "description": "A set of fields that constitute the complete asset state.",
+                        "description": "A set of properties that constitute a complete asset state. Includes event properties and any other calculated properties such as compliance related alerts.",
                         "properties": {
+                            "alerts": {
+                                "description": "Active means that the alert is in force in this state. Raised means that the alert became active as the result of the event that generated this state. Cleared means that the alert became inactive as the result of the event that generated this state.",
+                                "properties": {
+                                    "active": {
+                                        "items": {
+                                            "description": "Alerts are triggered or cleared by rules that are run against incoming events. This contract considers any active alert to created a state of non-compliance.",
+                                            "enum": [
+                                                "OVERTTEMP"
+                                            ],
+                                            "type": "string"
+                                        },
+                                        "minItems": 0,
+                                        "type": "array"
+                                    },
+                                    "cleared": {
+                                        "items": {
+                                            "description": "Alerts are triggered or cleared by rules that are run against incoming events. This contract considers any active alert to created a state of non-compliance.",
+                                            "enum": [
+                                                "OVERTTEMP"
+                                            ],
+                                            "type": "string"
+                                        },
+                                        "minItems": 0,
+                                        "type": "array"
+                                    },
+                                    "raised": {
+                                        "items": {
+                                            "description": "Alerts are triggered or cleared by rules that are run against incoming events. This contract considers any active alert to created a state of non-compliance.",
+                                            "enum": [
+                                                "OVERTTEMP"
+                                            ],
+                                            "type": "string"
+                                        },
+                                        "minItems": 0,
+                                        "type": "array"
+                                    }
+                                },
+                                "type": "object"
+                            },
                             "assetID": {
                                 "description": "The ID of a managed asset. The resource focal point for a smart contract.",
                                 "type": "string"
                             },
-                            "power": {
-                                "description": "Power consumption by the asset in KwH.",
-                                "type": "number"
+                            "carrier": {
+                                "description": "transport entity currently in possession of asset",
+                                "type": "string"
                             },
-                            "speed": {
-                                "description": "Speed of the asset in feet/second.",
-                                "type": "number"
+                            "compliant": {
+                                "description": "A contract-specific indication that this asset is compliant.",
+                                "type": "boolean"
                             },
-                            "system": {
-                                "description": "Properties of micro computer installed in the elevator",
+                            "extension": {
+                                "description": "Application-managed state. Opaque to contract.",
+                                "properties": {},
+                                "type": "object"
+                            },
+                            "lastEvent": {
+                                "description": "function and string parameter that created this state object",
                                 "properties": {
-                                    "cpu": {
+                                    "args": {
+                                        "items": {
+                                            "description": "parameters to the function, usually args[0] is populated with a JSON encoded event object",
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "function": {
+                                        "description": "function that created this state object",
+                                        "type": "string"
+                                    },
+                                    "redirectedFromFunction": {
+                                        "description": "function that originally received the event",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "location": {
+                                "description": "A geographical coordinate",
+                                "properties": {
+                                    "latitude": {
                                         "type": "number"
                                     },
-                                    "memory": {
+                                    "longitude": {
                                         "type": "number"
                                     }
                                 },
                                 "type": "object"
                             },
                             "temperature": {
-                                "description": "Temperature of the asset in FAHRENHEIT.",
+                                "description": "Temperature of the asset in CELSIUS.",
                                 "type": "number"
                             },
-                            "weight": {
-                                "description": "Weight of the Asset in Lb",
-                                "type": "number"
+                            "timestamp": {
+                                "description": "Device timestamp.",
+                                "type": "string"
+                            },
+                            "txntimestamp": {
+                                "description": "Transaction timestamp matching that in the blockchain.",
+                                "type": "string"
+                            },
+                            "txnuuid": {
+                                "description": "Transaction UUID matching that in the blockchain.",
+                                "type": "string"
                             }
                         },
                         "type": "object"
@@ -418,42 +642,116 @@ var schemas = `
                     ],
                     "type": "string"
                 },
+                "method": "query",
                 "result": {
                     "description": "an array of states for one asset sorted by timestamp with the most recent entry first",
                     "items": {
-                        "description": "A set of fields that constitute the complete asset state.",
+                        "description": "A set of properties that constitute a complete asset state. Includes event properties and any other calculated properties such as compliance related alerts.",
                         "properties": {
+                            "alerts": {
+                                "description": "Active means that the alert is in force in this state. Raised means that the alert became active as the result of the event that generated this state. Cleared means that the alert became inactive as the result of the event that generated this state.",
+                                "properties": {
+                                    "active": {
+                                        "items": {
+                                            "description": "Alerts are triggered or cleared by rules that are run against incoming events. This contract considers any active alert to created a state of non-compliance.",
+                                            "enum": [
+                                                "OVERTTEMP"
+                                            ],
+                                            "type": "string"
+                                        },
+                                        "minItems": 0,
+                                        "type": "array"
+                                    },
+                                    "cleared": {
+                                        "items": {
+                                            "description": "Alerts are triggered or cleared by rules that are run against incoming events. This contract considers any active alert to created a state of non-compliance.",
+                                            "enum": [
+                                                "OVERTTEMP"
+                                            ],
+                                            "type": "string"
+                                        },
+                                        "minItems": 0,
+                                        "type": "array"
+                                    },
+                                    "raised": {
+                                        "items": {
+                                            "description": "Alerts are triggered or cleared by rules that are run against incoming events. This contract considers any active alert to created a state of non-compliance.",
+                                            "enum": [
+                                                "OVERTTEMP"
+                                            ],
+                                            "type": "string"
+                                        },
+                                        "minItems": 0,
+                                        "type": "array"
+                                    }
+                                },
+                                "type": "object"
+                            },
                             "assetID": {
                                 "description": "The ID of a managed asset. The resource focal point for a smart contract.",
                                 "type": "string"
                             },
-                            "power": {
-                                "description": "Power consumption by the asset in KwH.",
-                                "type": "number"
+                            "carrier": {
+                                "description": "transport entity currently in possession of asset",
+                                "type": "string"
                             },
-                            "speed": {
-                                "description": "Speed of the asset in feet/second.",
-                                "type": "number"
+                            "compliant": {
+                                "description": "A contract-specific indication that this asset is compliant.",
+                                "type": "boolean"
                             },
-                            "system": {
-                                "description": "Properties of micro computer installed in the elevator",
+                            "extension": {
+                                "description": "Application-managed state. Opaque to contract.",
+                                "properties": {},
+                                "type": "object"
+                            },
+                            "lastEvent": {
+                                "description": "function and string parameter that created this state object",
                                 "properties": {
-                                    "cpu": {
+                                    "args": {
+                                        "items": {
+                                            "description": "parameters to the function, usually args[0] is populated with a JSON encoded event object",
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "function": {
+                                        "description": "function that created this state object",
+                                        "type": "string"
+                                    },
+                                    "redirectedFromFunction": {
+                                        "description": "function that originally received the event",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "location": {
+                                "description": "A geographical coordinate",
+                                "properties": {
+                                    "latitude": {
                                         "type": "number"
                                     },
-                                    "memory": {
+                                    "longitude": {
                                         "type": "number"
                                     }
                                 },
                                 "type": "object"
                             },
                             "temperature": {
-                                "description": "Temperature of the asset in FAHRENHEIT.",
+                                "description": "Temperature of the asset in CELSIUS.",
                                 "type": "number"
                             },
-                            "weight": {
-                                "description": "Weight of the Asset in Lb",
-                                "type": "number"
+                            "timestamp": {
+                                "description": "Device timestamp.",
+                                "type": "string"
+                            },
+                            "txntimestamp": {
+                                "description": "Transaction timestamp matching that in the blockchain.",
+                                "type": "string"
+                            },
+                            "txnuuid": {
+                                "description": "Transaction UUID matching that in the blockchain.",
+                                "type": "string"
                             }
                         },
                         "type": "object"
@@ -465,7 +763,7 @@ var schemas = `
             "type": "object"
         },
         "setCreateOnUpdate": {
-            "description": "Allow updateAsset to redirect to createAsset when assetID does not exist.",
+            "description": "Allow updateAsset to redirect to createAsset when 'assetID' does not exist.",
             "properties": {
                 "args": {
                     "description": "True for redirect allowed, false for error on asset does not exist.",
@@ -484,7 +782,8 @@ var schemas = `
                         "setCreateOnUpdate"
                     ],
                     "type": "string"
-                }
+                },
+                "method": "invoke"
             },
             "type": "object"
         },
@@ -516,53 +815,51 @@ var schemas = `
                         "setLoggingLevel"
                     ],
                     "type": "string"
-                }
+                },
+                "method": "invoke"
             },
             "type": "object"
         },
         "updateAsset": {
-            "description": "Update the state of an asset. The one argument is a JSON encoded event. AssetID is required along with one or more writable properties. Establishes the next asset state. ",
+            "description": "Update the state of an asset. The one argument is a JSON encoded event. The 'assetID' property is required along with one or more writable properties. Establishes the next asset state. ",
             "properties": {
                 "args": {
                     "description": "args are JSON encoded strings",
                     "items": {
-                        "description": "A set of fields that constitute the writable fields in an asset's state. AssetID is mandatory along with at least one writable field. In this contract pattern, a partial state is used as an event.",
+                        "description": "The set of writable properties that define an asset's state. For asset creation, the only mandatory property is the 'assetID'. Updates should include at least one other writable property. This exemplifies the IoT contract pattern 'partial state as event'.",
                         "properties": {
                             "assetID": {
                                 "description": "The ID of a managed asset. The resource focal point for a smart contract.",
                                 "type": "string"
                             },
-                            "power": {
-                                "description": "Power consumption by the asset in KwH.",
-                                "type": "number"
+                            "carrier": {
+                                "description": "transport entity currently in possession of asset",
+                                "type": "string"
                             },
-                            "speed": {
-                                "description": "Speed of the asset in feet/second.",
-                                "type": "number"
+                            "extension": {
+                                "description": "Application-managed state. Opaque to contract.",
+                                "properties": {},
+                                "type": "object"
                             },
-                            "system": {
-                                "description": "Properties of micro computer installed in the elevator",
+                            "location": {
+                                "description": "A geographical coordinate",
                                 "properties": {
-                                    "cpu": {
+                                    "latitude": {
                                         "type": "number"
                                     },
-                                    "memory": {
+                                    "longitude": {
                                         "type": "number"
                                     }
                                 },
                                 "type": "object"
                             },
                             "temperature": {
-                                "description": "Temperature of the asset in FAHRENHEIT.",
+                                "description": "Temperature of the asset in CELSIUS.",
                                 "type": "number"
                             },
-                            "threshold": {
-                                "description": "Temperature threshold inclusive in FAHRENHEIT.",
-                                "type": "number"
-                            },
-                            "weight": {
-                                "description": "Weight of the Asset in Lb",
-                                "type": "number"
+                            "timestamp": {
+                                "description": "Device timestamp.",
+                                "type": "string"
                             }
                         },
                         "required": [
@@ -580,14 +877,15 @@ var schemas = `
                         "updateAsset"
                     ],
                     "type": "string"
-                }
+                },
+                "method": "invoke"
             },
             "type": "object"
         }
     },
     "objectModelSchemas": {
         "assetIDKey": {
-            "description": "An object containing only an assetID for use as an argument to read or delete.",
+            "description": "An object containing only an 'assetID' for use as an argument to read or delete.",
             "properties": {
                 "assetID": {
                     "description": "The ID of a managed asset. The resource focal point for a smart contract.",
@@ -597,7 +895,7 @@ var schemas = `
             "type": "object"
         },
         "assetIDandCount": {
-            "description": "Requested assetID with item count.",
+            "description": "Requested 'assetID' with item 'count'.",
             "properties": {
                 "assetID": {
                     "description": "The ID of a managed asset. The resource focal point for a smart contract.",
@@ -613,43 +911,40 @@ var schemas = `
             "type": "object"
         },
         "event": {
-            "description": "A set of fields that constitute the writable fields in an asset's state. AssetID is mandatory along with at least one writable field. In this contract pattern, a partial state is used as an event.",
+            "description": "The set of writable properties that define an asset's state. For asset creation, the only mandatory property is the 'assetID'. Updates should include at least one other writable property. This exemplifies the IoT contract pattern 'partial state as event'.",
             "properties": {
                 "assetID": {
                     "description": "The ID of a managed asset. The resource focal point for a smart contract.",
                     "type": "string"
                 },
-                "power": {
-                    "description": "Power consumption by the asset in KwH.",
-                    "type": "number"
+                "carrier": {
+                    "description": "transport entity currently in possession of asset",
+                    "type": "string"
                 },
-                "speed": {
-                    "description": "Speed of the asset in feet/second.",
-                    "type": "number"
+                "extension": {
+                    "description": "Application-managed state. Opaque to contract.",
+                    "properties": {},
+                    "type": "object"
                 },
-                "system": {
-                    "description": "Properties of micro computer installed in the elevator",
+                "location": {
+                    "description": "A geographical coordinate",
                     "properties": {
-                        "cpu": {
+                        "latitude": {
                             "type": "number"
                         },
-                        "memory": {
+                        "longitude": {
                             "type": "number"
                         }
                     },
                     "type": "object"
                 },
                 "temperature": {
-                    "description": "Temperature of the asset in FAHRENHEIT.",
+                    "description": "Temperature of the asset in CELSIUS.",
                     "type": "number"
                 },
-                "threshold": {
-                    "description": "Temperature threshold inclusive in FAHRENHEIT.",
-                    "type": "number"
-                },
-                "weight": {
-                    "description": "Weight of the Asset in Lb",
-                    "type": "number"
+                "timestamp": {
+                    "description": "Device timestamp.",
+                    "type": "string"
                 }
             },
             "required": [
@@ -661,7 +956,7 @@ var schemas = `
             "description": "event sent to init on deployment",
             "properties": {
                 "nickname": {
-                    "default": "ELEVATOR",
+                    "default": "TRADELANE",
                     "description": "The nickname of the current contract",
                     "type": "string"
                 },
@@ -676,39 +971,112 @@ var schemas = `
             "type": "object"
         },
         "state": {
-            "description": "A set of fields that constitute the complete asset state.",
+            "description": "A set of properties that constitute a complete asset state. Includes event properties and any other calculated properties such as compliance related alerts.",
             "properties": {
+                "alerts": {
+                    "description": "Active means that the alert is in force in this state. Raised means that the alert became active as the result of the event that generated this state. Cleared means that the alert became inactive as the result of the event that generated this state.",
+                    "properties": {
+                        "active": {
+                            "items": {
+                                "description": "Alerts are triggered or cleared by rules that are run against incoming events. This contract considers any active alert to created a state of non-compliance.",
+                                "enum": [
+                                    "OVERTTEMP"
+                                ],
+                                "type": "string"
+                            },
+                            "minItems": 0,
+                            "type": "array"
+                        },
+                        "cleared": {
+                            "items": {
+                                "description": "Alerts are triggered or cleared by rules that are run against incoming events. This contract considers any active alert to created a state of non-compliance.",
+                                "enum": [
+                                    "OVERTTEMP"
+                                ],
+                                "type": "string"
+                            },
+                            "minItems": 0,
+                            "type": "array"
+                        },
+                        "raised": {
+                            "items": {
+                                "description": "Alerts are triggered or cleared by rules that are run against incoming events. This contract considers any active alert to created a state of non-compliance.",
+                                "enum": [
+                                    "OVERTTEMP"
+                                ],
+                                "type": "string"
+                            },
+                            "minItems": 0,
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
                 "assetID": {
                     "description": "The ID of a managed asset. The resource focal point for a smart contract.",
                     "type": "string"
                 },
-                "power": {
-                    "description": "Power consumption by the asset in KwH.",
-                    "type": "number"
+                "carrier": {
+                    "description": "transport entity currently in possession of asset",
+                    "type": "string"
                 },
-                "speed": {
-                    "description": "Speed of the asset in feet/second.",
-                    "type": "number"
+                "compliant": {
+                    "description": "A contract-specific indication that this asset is compliant.",
+                    "type": "boolean"
                 },
-                "system": {
-                    "description": "Properties of micro computer installed in the elevator",
+                "extension": {
+                    "description": "Application-managed state. Opaque to contract.",
+                    "properties": {},
+                    "type": "object"
+                },
+                "lastEvent": {
+                    "description": "function and string parameter that created this state object",
                     "properties": {
-                        "cpu": {
+                        "args": {
+                            "items": {
+                                "description": "parameters to the function, usually args[0] is populated with a JSON encoded event object",
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "function": {
+                            "description": "function that created this state object",
+                            "type": "string"
+                        },
+                        "redirectedFromFunction": {
+                            "description": "function that originally received the event",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "location": {
+                    "description": "A geographical coordinate",
+                    "properties": {
+                        "latitude": {
                             "type": "number"
                         },
-                        "memory": {
+                        "longitude": {
                             "type": "number"
                         }
                     },
                     "type": "object"
                 },
                 "temperature": {
-                    "description": "Temperature of the asset in FAHRENHEIT.",
+                    "description": "Temperature of the asset in CELSIUS.",
                     "type": "number"
                 },
-                "weight": {
-                    "description": "Weight of the Asset in Lb",
-                    "type": "number"
+                "timestamp": {
+                    "description": "Device timestamp.",
+                    "type": "string"
+                },
+                "txntimestamp": {
+                    "description": "Transaction timestamp matching that in the blockchain.",
+                    "type": "string"
+                },
+                "txnuuid": {
+                    "description": "Transaction UUID matching that in the blockchain.",
+                    "type": "string"
                 }
             },
             "type": "object"

@@ -11,9 +11,13 @@ Unless required by applicable law or agreed to in writing, software distributed 
 See the License for the specific language governing permissions and limitations under the License.
 
 Contributors:
-Rahul Gupta - World of Watson 2016
-Leucir Marin - World of Watson 2016
+Kim Letkeman - Initial Contribution
 */
+
+
+// v1 KL 15 Mar 2016 Created to allow us to insulate from logger versions
+//                   and to provide an efficient method of changing levels 
+//                   from outside and to allow the level switching to actually work
 
 package main
 
