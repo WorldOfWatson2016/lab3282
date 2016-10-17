@@ -11,14 +11,9 @@ Unless required by applicable law or agreed to in writing, software distributed 
 See the License for the specific language governing permissions and limitations under the License.
 
 Contributors:
-Kim Letkeman - Initial Contribution
+Rahul Gupta - World of Watson 2016
+Leucir Marin - World of Watson 2016
 */
-
-
-// ************************************
-// KL 14 Mar 2016 backport from 4.0
-// KL 27 Mar 2016 support for loose JSON-RPC naming for 3.0.5
-// ************************************
 
 package main // sitting beside the main file for now
 

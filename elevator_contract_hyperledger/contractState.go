@@ -11,16 +11,9 @@ Unless required by applicable law or agreed to in writing, software distributed 
 See the License for the specific language governing permissions and limitations under the License.
 
 Contributors:
-Kim Letkeman - Initial Contribution
+Rahul Gupta - World of Watson 2016
+Leucir Marin - World of Watson 2016
 */
-
-
-// v3.0 HM 25 Feb 2016 Moved the asset state history code into a separate package.
-// v3.0.1 HM 03 Mar 2016 Store the state history in descending order.
-// v3.0.2 KL 07 Mar 2016 Reduce memory garbage in updateStateHistory 
-// v3.0.3 KL             backported from original 3.1/4.0 
-// v4.0 KL 17 Mar 2016 Update version number to 4.0 for Hyperledger compatibility.
-//                     Clean up lint issues.
 
 package main
 

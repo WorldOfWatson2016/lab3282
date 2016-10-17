@@ -11,19 +11,9 @@ Unless required by applicable law or agreed to in writing, software distributed 
 See the License for the specific language governing permissions and limitations under the License.
 
 Contributors:
-Kim Letkeman - Initial Contribution
+Rahul Gupta - World of Watson 2016
+Leucir Marin - World of Watson 2016
 */
-
-
-// ************************************
-// Rules for Contract
-// KL 16 Feb 2016 Initial rules package for contract v2.8
-// KL 22 Feb 2016 Add compliance calculation
-// KL 09 Mar 2016 Logging replaces printf for v3.1
-// KL 12 Mar 2016 Conversion to externally present as alert names
-// KL 29 Mar 2016 Fixed subtle bug in OVERTEMP discovered while
-//                documenting the rules engine for 3.0.5
-// ************************************
 
 package main
 

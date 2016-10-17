@@ -11,13 +11,9 @@ Unless required by applicable law or agreed to in writing, software distributed 
 See the License for the specific language governing permissions and limitations under the License.
 
 Contributors:
-Howard McKinney- Initial Contribution
-Kim Letkeman - Initial Contribution
+Rahul Gupta - World of Watson 2016
+Leucir Marin - World of Watson 2016
 */
-
-
-// v3.0 HM 25 Feb 2016 Moved the asset state history code into a separate package.
-// v3.0.1 HM 03 Mar 2016 Store the state history in descending order.  
 
 package main
 

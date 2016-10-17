@@ -11,14 +11,9 @@ Unless required by applicable law or agreed to in writing, software distributed 
 See the License for the specific language governing permissions and limitations under the License.
 
 Contributors:
-Kim Letkeman - Initial Contribution
+Rahul Gupta - World of Watson 2016
+Leucir Marin - World of Watson 2016
 */
-
-
-// Recent state management
-// v1   KL 21 Feb 2016 Initial split from contract
-// v2   KL 11 Mar 2016 All state stored in the ledger.
-// v3   KL 15 Mar 2016 read cleaned up and returns one level of escaping now
 
 package main // sitting beside the main file for now
 
