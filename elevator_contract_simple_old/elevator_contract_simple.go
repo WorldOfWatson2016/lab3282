@@ -14,10 +14,7 @@ See the License for the specific language governing permissions and limitations 
 
 Contributors:
 
-Sumabala Nair - Initial Contribution
-Kim Letkeman - Initial Contribution
-Sumabala Nair - Updated for hyperledger May 2016
-Sumabala Nair - Partial updates added May 2016
+Rahul Gupta - Initial Contribution
 ******************************************************************************/
 //SN: March 2016
 
@@ -54,16 +51,18 @@ type ContractState struct {
     Version      string                        `json:"version"`
 }
 
-type Geolocation struct {
-    Latitude    *float64 `json:"latitude,omitempty"`
-    Longitude   *float64 `json:"longitude,omitempty"`
+type System struct {
+    Cpu      *float64 `json:"cpu,omitempty"`
+    Memory   *float64 `json:"memory,omitempty"`
 }
 
 type AssetState struct {
-    AssetID        *string       `json:"assetID,omitempty"`        // all assets must have an ID, primary key of contract
-    Location       *Geolocation  `json:"location,omitempty"`       // current asset location
-    Temperature    *float64      `json:"temperature,omitempty"`    // asset temp
-    Carrier        *string       `json:"carrier,omitempty"`        // the name of the carrier
+    AssetID        *string       `json:"assetID,omitempty"`
+    Weight         *float64      `json:"weight,omitempty"`
+    Temperature    *float64      `json:"temperature,omitempty"`
+    Speed          *float64      `json:"speed,omitempty"`
+    System         *System       `json:"system,omitempty"`
+    Power          *float64      `json:"power,omitempty"`
 }
 
 var contractState = ContractState{MYVERSION}

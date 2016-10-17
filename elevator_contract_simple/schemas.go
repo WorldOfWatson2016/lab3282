@@ -305,7 +305,8 @@ var schemas = `{
 						"updateAsset"
 					],
 					"type": "string"
-				}
+				},
+				"method": "invoke"
 			},
 			"type": "object"
 		}
