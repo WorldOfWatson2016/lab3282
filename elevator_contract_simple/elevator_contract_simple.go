@@ -58,7 +58,7 @@ type System struct {
 
 type AssetState struct {
     AssetID        *string       `json:"assetID,omitempty"`        // all assets must have an ID, primary key of contract
-	Weight         *float64      `json:"temperature,omitempty"`    // asset weight 
+	Weight         *float64      `json:"weight,omitempty"`         // asset weight 
     System         *System       `json:"system,omitempty"`         // current system usage
     Temperature    *float64      `json:"temperature,omitempty"`    // asset temperature
 	Speed          *float64      `json:"speed,omitempty"`          // asset speed
