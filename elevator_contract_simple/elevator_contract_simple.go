@@ -14,14 +14,11 @@ See the License for the specific language governing permissions and limitations 
 
 Contributors:
 
-Sumabala Nair - Initial Contribution
-Kim Letkeman - Initial Contribution
-Sumabala Nair - Updated for hyperledger May 2016
-Sumabala Nair - Partial updates added May 2016
+Rahul Gupta - IBM - World of Watson - rahul.gupta@us.ibm.com
+Leucir Marin - IBM - World of Watson - lmarin@us.ibm.com
 ******************************************************************************/
-//SN: March 2016
 
-// IoT Blockchain Simple Smart Contract v 1.0
+// IoT Blockchain Simple Elevatot Contract v 1.0
 
 // This is a simple contract that creates a CRUD interface to 
 // create, read, update and delete an asset
@@ -54,16 +51,18 @@ type ContractState struct {
     Version      string                        `json:"version"`
 }
 
-type Geolocation struct {
-    Latitude    *float64 `json:"latitude,omitempty"`
-    Longitude   *float64 `json:"longitude,omitempty"`
+type System struct {
+    CPU      *float64 `json:"cpu,omitempty"`
+    Memory   *float64 `json:"memory,omitempty"`
 }
 
 type AssetState struct {
     AssetID        *string       `json:"assetID,omitempty"`        // all assets must have an ID, primary key of contract
-    Location       *Geolocation  `json:"location,omitempty"`       // current asset location
-    Temperature    *float64      `json:"temperature,omitempty"`    // asset temp
-    Carrier        *string       `json:"carrier,omitempty"`        // the name of the carrier
+	Weight         *float64      `json:"temperature,omitempty"`    // asset weight 
+    System         *System       `json:"system,omitempty"`         // current system usage
+    Temperature    *float64      `json:"temperature,omitempty"`    // asset temperature
+	Speed          *float64      `json:"speed,omitempty"`          // asset speed
+	Power          *float64      `json:"power,omitempty"`          // asset power consumption
 }
 
 var contractState = ContractState{MYVERSION}
