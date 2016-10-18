@@ -154,7 +154,7 @@ code {
 }
 
 .iot-credentials-label{
-	width: 25%;
+	width: 31%;
 	display: inline-block;
 	color: #3f3636;
 	text-align: left;
@@ -165,7 +165,7 @@ code {
 .iot-sensor-label {
 	width: 25%;
 	display: inline-block;
-	color: #fc380a;
+	color: #04B2BC;
 	text-align: left;
 	font-size: 20px;
 	line-height: 24px;
