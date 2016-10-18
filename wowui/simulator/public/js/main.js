@@ -74,13 +74,14 @@ function publishWeight() {
 			model.data.weight += -0.1 + Math.random() * 0.2;
 			$('#weight').slider('setValue', model.data.weight);
 		}
-		setTimeout(publishWeight, 500);
+		setTimeout(publishWeight, 2000);
 	}
 }
 
 function publishSpeed() {
 	//var res = publishMessage(getTopicName("speed"), model.speed);
-	var res = publishMessage(getTopicName("data"), model.data);
+	//var res = publishMessage(getTopicName("data"), model.data);
+	var res = true;
 	$("#indicator-speed").addClass("pub");
 	setTimeout(function() { $("#indicator-speed").removeClass("pub"); }, 150);
 	if (res) {
@@ -94,7 +95,8 @@ function publishSpeed() {
 
 function publishPower() {
 	//var res = publishMessage(getTopicName("power"), model.power);
-	var res = publishMessage(getTopicName("data"), model.data);
+	//var res = publishMessage(getTopicName("data"), model.data);
+	var res = true;
 	$("#indicator-power").addClass("pub");
 	setTimeout(function() { $("#indicator-power").removeClass("pub"); }, 150);
 	if (res) {
@@ -108,7 +110,8 @@ function publishPower() {
 
 function publishTemp() {
 	//var res = publishMessage(getTopicName("temp"), model.temp);
-	var res = publishMessage(getTopicName("data"), model.data);
+	//var res = publishMessage(getTopicName("data"), model.data);
+	var res = true;
 	$("#indicator-temp").addClass("pub");
 	setTimeout(function() { $("#indicator-temp").removeClass("pub"); }, 150);
 	if (res) {
@@ -122,7 +125,8 @@ function publishTemp() {
 
 function publishSys() {
 	//var res = publishMessage(getTopicName("sys"), model.sys);
-	var res = publishMessage(getTopicName("data"), model.data);
+	//var res = publishMessage(getTopicName("data"), model.data);
+	var res = true;
 	$("#indicator-sys").addClass("pub");
 	setTimeout(function() { $("#indicator-sys").removeClass("pub"); }, 150);
 	if (res) {
