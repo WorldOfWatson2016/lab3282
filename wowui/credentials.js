@@ -5,8 +5,8 @@ var Credentials = {
 	apiKey: "",
 	apiToken: "",
 
-	typeId: "edisonsensor",
-	deviceId: "simulator",
+	typeId: "ELEVATOR",
+	deviceId: "IOT-ELEVATOR-001",
 	authToken: ""   // replace with the generated device token
 }
 
