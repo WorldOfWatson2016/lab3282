@@ -22871,7 +22871,7 @@
 	var FORM_JSON_SCHEMA_SUBMIT_BTN_TEXT = exports.FORM_JSON_SCHEMA_SUBMIT_BTN_TEXT = "Submit";
 
 	//text for the main title of the app
-	var APP_BAR_MAIN_TITLE_TEXT = exports.APP_BAR_MAIN_TITLE_TEXT = "Elevator Company - Blockchain Monitor";
+	var APP_BAR_MAIN_TITLE_TEXT = exports.APP_BAR_MAIN_TITLE_TEXT = "Elevator Company - Blockchain Monitor - World of Watson 2016";
 
 	//text for the word "Block"
 	var BLOCK_CARD_HEADER_TEXT = exports.BLOCK_CARD_HEADER_TEXT = "Block";
