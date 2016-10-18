@@ -23,7 +23,7 @@ export const OBC_CONFIG_DIALOG_TITLE = "Configuration"
 export const FORM_JSON_SCHEMA_SUBMIT_BTN_TEXT = "Submit"
 
 //text for the main title of the app
-export const APP_BAR_MAIN_TITLE_TEXT = "IoT Blockchain Monitor"
+export const APP_BAR_MAIN_TITLE_TEXT = "Elevator Company - Blockchain Monitor"
 
 //text for the word "Block"
 export const BLOCK_CARD_HEADER_TEXT = "Block"
