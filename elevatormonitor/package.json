@@ -1,0 +1,17 @@
+{
+  "name": "elevator-monitor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Rahul Gupta",
+  "license": "IBM",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "cfenv": "^1.0.3",
+    "express": "^4.13.4",
+    "express-session": "*"
+  }
+}
