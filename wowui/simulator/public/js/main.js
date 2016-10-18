@@ -228,7 +228,7 @@ function onConnectSuccess() {
 	$(".connectionStatus").html("Connected");
 	$(".connectionStatus").addClass("connected");
 
-	if (navigator.geolocation) {
+/*	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(function(position) {
 			console.log(position);
 			startPublish();
@@ -236,6 +236,9 @@ function onConnectSuccess() {
 	} else {
 		startPublish();
 	}
+*/
+
+	startPublish();
 }
 
 function onConnectFailure() {
