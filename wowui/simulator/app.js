@@ -3,7 +3,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var https = require('https');
-var credentials = require('../credentials');
+var credentials = require('./credentials');
 var app = express();
 var cfenv = require('cfenv');
 app.use(express.static(__dirname + '/public'));
