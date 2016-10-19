@@ -59,27 +59,27 @@
 				<div class="iot-input-group">
 					<h3>Elevator Weight</h3>
 					<div class="iot-input-container">
-						<div class="iot-topic-container"><div class="iot-topic"><b>Topic:</b> <code>iot-2/evt/weight/fmt/json</code></div><div class='iot-rate hidden-sm'></div></div>
+						<div class="iot-topic-container"><div class="iot-topic"><b>Topic:</b> <code>iot-2/evt/weight/fmt/json</code></div><div class='iot-rate hidden-sm'><b>Rate:</b> <code>2 msgs/sec</code></div><div class='iot-indicator' id="indicator-weight">&nbsp;</div></div>
 						<div class="iot-stat">
-							<div class="iot-sensor-label">Lb</div><input id="weight" data-slider-id='weight-slider' type="text" data-slider-min="1" data-slider-max="500" data-slider-step="10" data-slider-value="100"/>
+							<div class="iot-sensor-label">Lb</div><input id="weight" data-slider-id='weight-slider' type="text" data-slider-min="-2" data-slider-max="2" data-slider-step="0.01" data-slider-value="0"/>
 						</div>
 					</div>
 				</div>
 				<div class="iot-input-group">
 					<h3>Elevator Speed</h3>
 					<div class="iot-input-container">
-						<div class="iot-topic-container"><div class="iot-topic"><b>Topic:</b> <code>iot-2/evt/speed/fmt/json</code></div><div class='iot-rate hidden-sm'></div></div>
+						<div class="iot-topic-container"><div class="iot-topic"><b>Topic:</b> <code>iot-2/evt/speed/fmt/json</code></div><div class='iot-rate hidden-sm'><b>Rate:</b> <code>2 msgs/sec</code></div><div class='iot-indicator' id="indicator-speed">&nbsp;</div></div>
 						<div class="iot-stat">
-							<div class="iot-sensor-label">m/s</div><input id="speed" data-slider-id='speed-slider' type="text" data-slider-min="1" data-slider-max="10" data-slider-step="1" data-slider-value="2"/>
+							<div class="iot-sensor-label">m/s</div><input id="speed" data-slider-id='speed-slider' type="text" data-slider-min="-245" data-slider-max="245" data-slider-step="1" data-slider-value="0"/>
 						</div>
 					</div>
 				</div>
 				<div class="iot-input-group">
 					<h3>Elevator Power</h3>
 					<div class="iot-input-container">
-						<div class="iot-topic-container"><div class="iot-topic"><b>Topic:</b> <code>iot-2/evt/power/fmt/json</code></div><div class='iot-rate hidden-sm'></div></div>
+						<div class="iot-topic-container"><div class="iot-topic"><b>Topic:</b> <code>iot-2/evt/power/fmt/json</code></div><div class='iot-rate hidden-sm'><b>Rate:</b> <code>2 msgs/sec</code></div><div class='iot-indicator' id="indicator-power">&nbsp;</div></div>
 						<div class="iot-stat">
-							<div class="iot-sensor-label">Kw</div><input id="power" data-slider-id='power-slider' type="text" data-slider-min="50" data-slider-max="200" data-slider-step="2" data-slider-value="80"/>
+							<div class="iot-sensor-label">Kw</div><input id="power" data-slider-id='power-slider' type="text" data-slider-min="-2" data-slider-max="2" data-slider-step="0.01" data-slider-value="0"/>
 						</div>
 					</div>
 				</div>
@@ -88,16 +88,16 @@
 				<div class="iot-input-group">
 					<h3>Elevator Temperature</h3>
 					<div class="iot-input-container">
-						<div class="iot-topic-container"><div class="iot-topic"><b>Topic:</b> <code>iot-2/evt/temp/fmt/json</code></div><div class='iot-rate hidden-sm'></div></div>
+						<div class="iot-topic-container"><div class="iot-topic"><b>Topic:</b> <code>iot-2/evt/temp/fmt/json</code></div><div class='iot-rate hidden-sm'><b>Rate:</b> <code>every 2 sec</code></div><div class='iot-indicator' id="indicator-temp">&nbsp;</div></div>
 						<div class="iot-stat">
-							<div class="iot-sensor-label">temp (˚C)</div><input id="temp" data-slider-id='temp-slider' type="text" data-slider-min="10" data-slider-max="45" data-slider-step="1" data-slider-value="25"/>
+							<div class="iot-sensor-label">temp (˚C)</div><input id="temp" data-slider-id='temp-slider' type="text" data-slider-min="0" data-slider-max="30" data-slider-step="0.1" data-slider-value="10"/>
 						</div>
 					</div>
 				</div>
 				<div class="iot-input-group">
 					<h3>Elevator System</h3>
 					<div class="iot-input-container">
-						<div class="iot-topic-container"><div class="iot-topic"><b>Topic:</b> <code>iot-2/evt/sys/fmt/json</code></div><div class='iot-rate hidden-sm'></div></div>
+						<div class="iot-topic-container"><div class="iot-topic"><b>Topic:</b> <code>iot-2/evt/sys/fmt/json</code></div><div class='iot-rate hidden-sm'><b>Rate:</b> <code>every 10 sec</code></div><div class='iot-indicator' id="indicator-sys">&nbsp;</div></div>
 						<div class="iot-stat">
 							<div class="iot-sensor-label">CPU %</div><input id="cpu" data-slider-id='cpu-slider' type="text" data-slider-min="0" data-slider-max="1" data-slider-step="0.01" data-slider-value="0.5"/>
 						</div>
