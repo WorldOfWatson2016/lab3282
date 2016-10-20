@@ -24,7 +24,7 @@ function inputBlur(i) {
 }
 
 function activateBlockchain() {
-	
+
     orgId = document.getElementById("orgID").value;
     submitOK = true;
 
@@ -34,9 +34,9 @@ function activateBlockchain() {
     }
 
     if (submitOK) {
-		
+
         activationURL = "https://" + orgId + ".internetofthings.ibmcloud.com/api/v0002/blockchain/activate?code=" + orgId;
-		
+
         $.ajax({
             url: activationURL,
             type: "GET",
@@ -48,7 +48,7 @@ function activateBlockchain() {
                 console.error("Could not activate Blockchain.");
             }
         });
-		
+
     }
 }
 
