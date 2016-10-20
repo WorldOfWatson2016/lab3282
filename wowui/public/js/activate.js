@@ -30,7 +30,7 @@ function activateBlockchain() {
 
     if (orgId === "b304dv") {
         alert("Organization Name could not be empty");
-        submitOK = "false";
+        submitOK = false;
     }
 
     if (submitOK) {
@@ -58,7 +58,7 @@ function enableBlockchain() {
 
     if (orgId === "b304dv") {
         alert("Organization Name could not be empty");
-        submitOK = "false";
+        submitOK = false;
     }
 
     if (submitOK) {
