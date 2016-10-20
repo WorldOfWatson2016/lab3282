@@ -37,7 +37,7 @@
 							<div class="iot-credentials-label">Blockchain Peer URL</div><input class="iot-credentials-input" id="peerUrl" type="text" style="color:#888" value="https://peerurl:444" onfocus="inputFocus(this)" onblur="inputBlur(this)"/><br>
 							<div class="iot-credentials-label">Enroll ID</div><input class="iot-credentials-input" id="userName" type="text" value="" /><br>
 							<div class="iot-credentials-label">Enroll Secret</div><input class="iot-credentials-input" id="password" type="text" value="" /><br>
-							<div class="iot-credentials-label">Contract Path</div><input class="iot-credentials-input" id="contract" type="text" value="https://github.com/WorldOfWatson2016/lab3282/simple_elevator_contract" readonly/><br><br>
+							<div class="iot-credentials-label">Contract Path</div><input class="iot-credentials-input" id="contract" type="text" value="https://github.com/WorldOfWatson2016/lab3282/elevator_contract_simple" readonly/><br><br>
 							<input class="iot-deploy-button" type="button" value="Register" id="button-deploy-blockchain" onclick="return registerUser()"/>
 							<input class="iot-deploy-button" type="button" value="Deploy" id="button-deploy-blockchain" onclick="return deployContract()"/>
 						</h3>
@@ -47,6 +47,7 @@
 			</div>
 		</div>
 	</div>
+	<textarea class="iot-text-area" id="textarea-log" cols="110" rows="5" readonly></textarea>
 	<!-- Please do not change the order of these links as some depend on each other -->
 	<script type="text/javascript" src="js/vendor/jquery.min.js"></script>
 	<script type="text/javascript" src="js/vendor/bootstrap.min.js"></script>

@@ -5,7 +5,7 @@ var peer;
 var registrationURL;
 var deployURL;
 
-var deploy = {
+var deployData = {
   jsonrpc: "2.0",
   method : "deploy",
   params: {
@@ -41,6 +41,8 @@ function registerUser() {
 	enrollSecretData = document.getElementById("password").value;
 	submitOK         = true;
 	
+	$('#textarea-log').val("");
+	
 	if (peer === "https://peerurl:444") {
 		alert("Peer name could not be empty");
         submitOK = "false";
@@ -60,26 +62,22 @@ function registerUser() {
 		registrationURL = peer + "/registrar"
 		registration.enrollId=enrollIdData;
 		registration.enrollSecret=enrollSecretData;
-		register();
-	}
-	
-}
-
-function register() {
-	
-	    $.ajax({
+		
+			    $.ajax({
 		url: registrationURL,
 		type: "POST",
 		dataType: "json",
 		contentType: "application/json; charset=utf-8",
 		data: JSON.stringify(registration),
 		success: function(response) {
-			console.log(registration);
+			$('#textarea-log').val(JSON.stringify(response));
 		},
 		error: function(xhr, status, error) {
 			console.error(registration);
 			console.error("Could not fetch organization information.");
 		}});
+	}
+	
 }
 
 function deployContract() {
@@ -88,6 +86,8 @@ function deployContract() {
 	enrollIdData = document.getElementById("userName").value;
 	contractpath = document.getElementById("contract").value;
 	submitOK = true;
+	
+	$('#textarea-log').val("");
 	
 	if (peer === "https://peerurl:444") {
 		alert("Peer name could not be empty");
@@ -101,27 +101,21 @@ function deployContract() {
 	
 	if(submitOK) {
 		deployURL = peer + "/chaincode";
-		deploy.params.chaincodeID.path=enrollIdData;
-		deploy.params.secureContext=contractpath;
-		deployContract();
-	}
-	
-}
-
-
-function deployContract() {
-	
-	    $.ajax({
+		deployData.params.chaincodeID.path=contractpath;
+		deployData.params.secureContext=enrollIdData;
+		
+			    $.ajax({
 		url: deployURL,
 		type: "POST",
 		dataType: "json",
 		contentType: "application/json; charset=utf-8",
-		data: JSON.stringify(deploy),
+		data: JSON.stringify(deployData),
 		success: function(response) {
-			console.log(deploy);
+			$('#textarea-log').val(JSON.stringify(response));
 		},
 		error: function(xhr, status, error) {
-			console.error(deploy);
 			console.error("Error while deployment of chaincode.");
 		}});
+	}
+	
 }

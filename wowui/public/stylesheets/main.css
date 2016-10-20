@@ -253,6 +253,14 @@ input {
 	background-color: #fc380a;
 }
 
+.iot-text-area {
+	border: 3px solid #cccccc;
+	padding: 5px;
+	font-family: HelveticaNeue-Light, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	text-align: left;
+	font-size: 20px;
+}
+
 #button-UP { left: 50px; top: 0; }
 #button-DOWN { left: 50px; top: 100px; }
 #button-LEFT { left: 0; top: 50px; }
@@ -270,3 +278,5 @@ input {
 input {
 	color: black;
 }
+
+.

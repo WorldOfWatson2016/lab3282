@@ -1,44 +1,46 @@
 <!DOCTYPE html>
 <html>
 <script src="js/activate.js"></script>
+
 <head>
-	<title>IBM - World of Watson - 3282A</title>
-	<link rel='stylesheet' href='stylesheets/vendor/bootstrap.min.css'/>
-	<link rel='stylesheet' href='stylesheets/vendor/bootstrap-slider.min.css'/>
-	<link rel='stylesheet' href='stylesheets/main.css'/>
-	<link rel='stylesheet' href='stylesheets/utils.css'/>
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>IBM - World of Watson - 3282A</title>
+    <link rel='stylesheet' href='stylesheets/vendor/bootstrap.min.css' />
+    <link rel='stylesheet' href='stylesheets/vendor/bootstrap-slider.min.css' />
+    <link rel='stylesheet' href='stylesheets/main.css' />
+    <link rel='stylesheet' href='stylesheets/utils.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
+
 <body>
     <div class="wow-header-image">
-	<div class="row">
-	          <img src="images/header.jpg" id="imgbg" class="img-responsive"> 
-	</div>
+        <div class="row">
+            <img src="images/header.jpg" id="imgbg" class="img-responsive">
+        </div>
     </div>
-	<nav class="navbar navbar-static-top" role="navigation" aria-label="Watson IoT Platform sites">
-		<div class="row">
-			<div class="col-xs-12">
-				<div class="iot-root-navigation">
-					<div class="navbar-header">
-						<span class="navbar-brand iotf-brand"><a href="/">IBM <strong>Watson IoT</strong> Platform</a></span>
-						<span class="navbar-title iotf-brand">Activate and Enable IoT Blockchain</span>
-				</div>
-			</div>
-		</div>
-	</nav>
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12">
-				<div class="iot-input-group">
-					<div class="credentials-container">
-						<h3>Activate and Enable Blockchain:
-						</h3>
-						<h3>
-						    <div class="iot-credentials-label">User Name</div><input class="iot-credentials-input" id="uname" type="text" /><br>
-							<div class="iot-credentials-label">IoT Platform Org ID</div><input class="iot-credentials-input" id="orgID" type="text" style="color:#888" value="b304dv" onfocus="inputFocus(this)" onblur="inputBlur(this)" /><br><br>
-							<div class="iot-credentials-label">Activate</div><label class="switch"><input type="checkbox"><div class="slider round"></div></label><br>
-							<div class="iot-credentials-label">Enable</div><label class="switch"><input type="checkbox"><div class="slider round"></div></label><br><br>
-							<input class="iot-configure-bc-button" type="button" value="Configure Blockchain Fabric" id="button-configure-blockchain" />
+    <nav class="navbar navbar-static-top" role="navigation" aria-label="Watson IoT Platform sites">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="iot-root-navigation">
+                    <div class="navbar-header">
+                        <span class="navbar-brand iotf-brand"><a href="/">IBM <strong>Watson IoT</strong> Platform</a></span>
+                        <span class="navbar-title iotf-brand">Activate and Enable IoT Blockchain</span>
+                    </div>
+                </div>
+            </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="iot-input-group">
+                    <div class="credentials-container">
+                        <h3>Activate and Enable Blockchain:
+                        </h3>
+                        <h3>
+                            <div class="iot-credentials-label">User Name</div><input class="iot-credentials-input" id="uname" type="text" /><br>
+                            <div class="iot-credentials-label">IoT Platform Org ID</div><input class="iot-credentials-input" id="orgID" type="text" style="color:#888" value="b304dv" onfocus="inputFocus(this)" onblur="inputBlur(this)" /><br><br>
+                            <div class="iot-credentials-label">Activate</div><label class="switch"><input type="checkbox" id="blockchain-activate" onclick="return activateBlockchain()"><div class="slider round"></div></label><br>
+                            <div class="iot-credentials-label">Enable</div><label class="switch"><input type="checkbox" id="blockchain-enable" onclick="return enableBlockchain()"><div class="slider round"></div></label><br><br>
+                            <input class="iot-configure-bc-button" type="button" value="Configure Blockchain Fabric" id="button-configure-blockchain/>
 						</h3>
 					</div>
 				</div>
@@ -47,10 +49,10 @@
 		</div>
 	</div>
 	<!-- Please do not change the order of these links as some depend on each other -->
-	<script type="text/javascript" src="js/vendor/jquery.min.js"></script>
-	<script type="text/javascript" src="js/vendor/bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/vendor/bootstrap-slider.min.js"></script>
-	<script type="text/javascript" src="js/vendor/mqttws31.js"></script>
-	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript " src="js/vendor/jquery.min.js "></script>
+	<script type="text/javascript " src="js/vendor/bootstrap.min.js "></script>
+	<script type="text/javascript " src="js/vendor/bootstrap-slider.min.js "></script>
+	<script type="text/javascript " src="js/vendor/mqttws31.js "></script>
+	<script type="text/javascript " src="js/main.js "></script>
 </body>
 </html>
