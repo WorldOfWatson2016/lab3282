@@ -194,7 +194,7 @@ function onConfirmConfig(){
 					window.iot_typeId = response.typeId;
 					window.iot_deviceId = response.deviceId;
 					window.iot_host = response.org + ".messaging.internetofthings.ibmcloud.com";
-					window.iot_port = 1883;
+					window.iot_port = 8883;
 					//window.iot_clientid = "d:"+response.org+":"+response.typeId+":"+response.deviceId;
 					window.iot_clientid = "a:"+response.org+":"+"123243432423423";
 					//window.iot_username = "use-token-auth";
