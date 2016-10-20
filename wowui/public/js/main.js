@@ -18,9 +18,9 @@ var model = {
 	data: {
 		assetID:null,
 		weight: 100,
-		speed: 10,
-		power: 50,
-		temperature: 10,
+		speed: 2,
+		power: 80,
+		temperature: 25,
 		system: {
 			cpu: 0.25,
 			memory: 485908145
@@ -71,7 +71,8 @@ function publishWeight() {
 	setTimeout(function() { $("#indicator-weight").removeClass("pub"); }, 150);
 	if (res) {
 		if (bRandomize) {
-			model.data.weight += -0.1 + Math.random() * 0.2;
+			model.data.weight += -10 + Math.random() * 20;
+			//model.data.weight = Math.floor(Math.random() * (500 - 0) + 0);
 			$('#weight').slider('setValue', model.data.weight);
 		}
 		setTimeout(publishWeight, 2000);
@@ -86,7 +87,8 @@ function publishSpeed() {
 	setTimeout(function() { $("#indicator-speed").removeClass("pub"); }, 150);
 	if (res) {
 		if (bRandomize) {
-			model.data.speed += -5 + Math.random() * 10;
+			model.data.speed += -2 + Math.random() * 4;
+			//model.data.speed = Math.floor(Math.random() * (10 - 0) + 0);
 			$('#speed').slider('setValue', model.data.speed);
 		}
 		setTimeout(publishSpeed, 500);
@@ -101,7 +103,8 @@ function publishPower() {
 	setTimeout(function() { $("#indicator-power").removeClass("pub"); }, 150);
 	if (res) {
 		if (bRandomize) {
-			model.data.power += -0.1 + Math.random() * 0.2;
+			model.data.power += -2 + Math.random() * 4;
+			//model.data.power = Math.floor(Math.random() * (200 - 50) + 50);
 			$('#power').slider('setValue', model.data.power);
 		}
 		setTimeout(publishPower, 500);
@@ -116,7 +119,8 @@ function publishTemp() {
 	setTimeout(function() { $("#indicator-temp").removeClass("pub"); }, 150);
 	if (res) {
 		if (bRandomize) {
-			model.data.temperature += -1 + Math.random() * 2;
+			model.data.temperature += -1 + Math.random() * 4;
+			//model.data.temperature += Math.floor(Math.random() * (80 - 20) + 20);
 			$('#temp').slider('setValue', model.data.temperature);
 		}
 		setTimeout(publishTemp, 2000);
@@ -228,15 +232,15 @@ function onConnectSuccess() {
 	$(".connectionStatus").html("Connected");
 	$(".connectionStatus").addClass("connected");
 
-/*	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(function(position) {
-			console.log(position);
-			startPublish();
-		});
-	} else {
-		startPublish();
-	}
-*/
+	/*	if (navigator.geolocation) {
+	 navigator.geolocation.getCurrentPosition(function(position) {
+	 console.log(position);
+	 startPublish();
+	 });
+	 } else {
+	 startPublish();
+	 }
+	 */
 
 	startPublish();
 }
