@@ -1,14 +1,6 @@
 var orgId;
 var userName;
 
-var enableBC = {
-    "enable": true
-}
-
-var disableBC = {
-    "enable": false
-}
-
 function inputFocus(i) {
     if (i.value == i.defaultValue) {
         i.value = "";
@@ -22,64 +14,6 @@ function inputBlur(i) {
         i.style.color = "#888";
     }
 }
-
-function activateBlockchain() {
-
-    orgId = document.getElementById("orgID").value;
-    submitOK = true;
-
-    if (orgId === "b304dv") {
-        alert("Organization Name could not be empty");
-        submitOK = false;
-    }
-
-    if (submitOK) {
-
-        activationURL = "https://" + orgId + ".internetofthings.ibmcloud.com/api/v0002/blockchain/activate?code=" + orgId;
-
-        $.ajax({
-            url: activationURL,
-            type: "GET",
-            success: function(response) {
-                alert("Activation Successful");
-            },
-            error: function(xhr, status, error) {
-                alert("Blockchain Activation Failure");
-                console.error("Could not activate Blockchain.");
-            }
-        });
-
-    }
-}
-
-function enableBlockchain() {
-    orgId = document.getElementById("orgID").value;
-    submitOK = true;
-
-    if (orgId === "b304dv") {
-        alert("Organization Name could not be empty");
-        submitOK = false;
-    }
-
-    if (submitOK) {
-        enableURL = "https://" + orgId + ".internetofthings.ibmcloud.com/api/v0002/blockchain/enable";
-        $.ajax({
-            url: enableURL,
-            type: "POST",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(enableBC),
-            success: function(response) {
-                alert("Activation Successful");
-            },
-            error: function(xhr, status, error) {
-                alert("Blockchain Enabling Failure");
-                console.error("Could not enable Blockchain.");
-            }
-        });
-    }
-}
-
 
 function activateURL() {
 	var activationURL;
@@ -99,7 +33,38 @@ function activateURL() {
     return activationURL;
 }
 
-function RedirectURL()
+function activateRedirectURL()
 {
-    window.location= activateURL();
+    window.location = activateURL();
+}
+
+function configURL() {
+	var configURL;
+	
+	orgId = document.getElementById("orgID").value;
+	username = document.getElementById("uname").value;
+	
+	submitOK = true;
+	
+    if (orgId === "b304dv") {
+        alert("Organization Name could not be empty");
+        submitOK = false;
+    }
+    
+    if (orgId === "") {
+        alert("User Name could not be empty");
+        submitOK = false;
+    }
+
+    if (submitOK) {
+    	
+    	activationURL = "https://" + orgId + ".internetofthings.ibmcloud.com/dashboard/#/config-v2";
+    }
+    
+    return activationURL;
+}
+
+function configRedirectURL()
+{
+    window.location = configURL();
 }
