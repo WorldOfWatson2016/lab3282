@@ -44,7 +44,7 @@ function activateBlockchain() {
                 alert("Activation Successful");
             },
             error: function(xhr, status, error) {
-                alert("Activation Failure");
+                alert("Blockchain Activation Failure");
                 console.error("Could not activate Blockchain.");
             }
         });
@@ -73,8 +73,8 @@ function enableBlockchain() {
                 alert("Activation Successful");
             },
             error: function(xhr, status, error) {
-                alert("Activation Failure");
-                console.error("Could not activate Blockchain.");
+                alert("Blockchain Enabling Failure");
+                console.error("Could not enable Blockchain.");
             }
         });
     }
