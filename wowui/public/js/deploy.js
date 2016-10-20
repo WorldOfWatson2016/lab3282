@@ -99,12 +99,12 @@ function deployContract() {
 
     if (peer === "https://peerurl:444") {
         alert("Peer name could not be empty");
-        submitOK = "false";
+        submitOK = false;
     }
 
     if (enrollIdData.length == 0) {
         alert("Enroll ID could not be empty");
-        submitOK = "false";
+        submitOK = false;
     }
 
     if (submitOK) {
