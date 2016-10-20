@@ -79,3 +79,27 @@ function enableBlockchain() {
         });
     }
 }
+
+
+function activateURL() {
+	var activationURL;
+	orgId = document.getElementById("orgID").value;
+	submitOK = true;
+	
+    if (orgId === "b304dv") {
+        alert("Organization Name could not be empty");
+        submitOK = false;
+    }
+
+    if (submitOK) {
+    	
+    	activationURL = "https://" + orgId + ".internetofthings.ibmcloud.com/api/v0002/blockchain/activate?code=" + orgId;
+    }
+    
+    return activationURL;
+}
+
+function RedirectURL()
+{
+    window.location= activateURL();
+}
