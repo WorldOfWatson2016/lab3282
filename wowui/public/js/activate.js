@@ -62,13 +62,13 @@ function enableBlockchain() {
     }
 
     if (submitOK) {
-        enableURL = "https://" + orgId + ".internetofthings.ibmcloud.com/api/v0002/blockchain/activate?code=" + orgId;
+        enableURL = "https://" + orgId + ".internetofthings.ibmcloud.com/api/v0002/blockchain/enable";
         $.ajax({
-            url: registrationURL,
+            url: enableURL,
             type: "POST",
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(registration),
+            data: JSON.stringify(enableBC),
             success: function(response) {
                 alert("Activation Successful");
             },
