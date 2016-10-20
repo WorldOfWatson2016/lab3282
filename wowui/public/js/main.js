@@ -264,7 +264,8 @@ function connectDevice() {
 		onSuccess: onConnectSuccess,
 		onFailure: onConnectFailure,
 		userName: window.iot_username,
-		password: window.iot_password
+		password: window.iot_password,
+		useSSL:true
 	});
 }
 
