@@ -21,7 +21,7 @@ function inputBlur(i) {
 }
 
 function activateURL() {
-    var activationURL;
+    var activationURL = "/activate";
     orgId = document.getElementById("orgID").value;
     submitOK = true;
 
@@ -43,7 +43,7 @@ function activateRedirectURL() {
 }
 
 function configURL() {
-    var configURL;
+    var enableURL = "/activate";
 
     orgId = document.getElementById("orgID").value;
     username = document.getElementById("uname").value;
@@ -62,28 +62,26 @@ function configURL() {
 
     if (submitOK) {
 
-        activationURL = "https://" + orgId + ".internetofthings.ibmcloud.com/dashboard/#/config-v2";
-
+        enableURL = "https://" + orgId + ".internetofthings.ibmcloud.com/dashboard/#/config-v2";
         registration.username = userName;
         registration.orgid = orgId;
 
         $.ajax({
-            url: "https://rahul-gupta.mybluemix.net/register",
+            url: "/register",
             type: "POST",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			contentType: "application/json; charset=utf-8",
             data: JSON.stringify(registration),
             success: function(response) {
-                $('#textarea-log').val(JSON.stringify(response));
+                console.log("Success in user registration")
             },
             error: function(xhr, status, error) {
-                console.error(registration);
                 console.error("Error while user registration");
-            }
+            },
+            async: false
         });
     }
-
-    return activationURL;
+    return enableURL;
 }
 
 function configRedirectURL() {

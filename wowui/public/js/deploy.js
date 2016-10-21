@@ -66,7 +66,7 @@ function registerUser() {
     }
 
     if (submitOK) {
-        registrationURL = peer + "/registrar";
+        registrationURL = "/register";
         registration.enrollId = enrollIdData;
         registration.enrollSecret = enrollSecretData;
 
