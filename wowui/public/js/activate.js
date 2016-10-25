@@ -67,7 +67,7 @@ function configURL() {
         registration.orgid = orgId;
 
         $.ajax({
-            url: "/register",
+            url: "/activate/iot",
             type: "POST",
 			dataType: "json",
 			contentType: "application/json; charset=utf-8",

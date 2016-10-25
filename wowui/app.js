@@ -66,7 +66,7 @@ app.get('/simulator', function(req, res) {
     res.sendFile(__dirname + '/public/simulate.html');
 });
 
-app.post('/register', function(req, res) {
+app.post('/activate/iot', function(req, res) {
 
     var uname = req.body.username;
     var orgid = req.body.orgid;
