@@ -66,7 +66,7 @@ function registerUser() {
     }
 
     if (submitOK) {
-        registrationURL = peer + "/register";
+        registrationURL = peer + "/registrar";
         registration.enrollId = enrollIdData;
         registration.enrollSecret = enrollSecretData;
 
@@ -78,6 +78,9 @@ function registerUser() {
             data: JSON.stringify(registration),
             success: function(response) {
                 $('#textarea-log').val(JSON.stringify(response));
+				$('#peerUrl').val("");
+				$('#userName').val("");
+				$('#password').val("");	
             },
             error: function(xhr, status, error) {
                 console.error(registration);
@@ -120,6 +123,9 @@ function deployContract() {
             data: JSON.stringify(deployData),
             success: function(response) {
                 $('#textarea-log').val(JSON.stringify(response));
+				$('#peerUrl').val("");
+				$('#userName').val("");
+				$('#password').val("");	
             },
             error: function(xhr, status, error) {
                 console.error("Error while deployment of chaincode.");
