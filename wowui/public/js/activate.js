@@ -1,9 +1,11 @@
 var orgId;
 var userName;
+var userEmail;
 
 var registration = {
     "username": userName,
-    "orgid": orgId
+    "orgid": orgId,
+	"email": userEmail
 }
 
 function inputFocus(i) {
@@ -32,7 +34,7 @@ function activateURL() {
 
     if (submitOK) {
 
-        activationURL = "https://" + orgId + ".internetofthings.ibmcloud.com/api/v0002/blockchain/activate?code=" + orgId;
+        activationURL = "https://" + orgId + ".internetofthings.ibmcloud.com/api/v0002/blockchain/activate?code=wow2016lab3282";
     }
 
     return activationURL;
@@ -47,6 +49,7 @@ function configURL() {
 
     orgId = document.getElementById("orgID").value;
     username = document.getElementById("uname").value;
+	useremail = document.getElementById("email").value;
 
     submitOK = true;
 
@@ -62,9 +65,9 @@ function configURL() {
 
     if (submitOK) {
 
-        enableURL = "https://" + orgId + ".internetofthings.ibmcloud.com/dashboard/#/config-v2";
         registration.username = userName;
         registration.orgid = orgId;
+		registration.userEmail = useremail;
 
         $.ajax({
             url: "/activate/iot",
@@ -74,6 +77,7 @@ function configURL() {
             data: JSON.stringify(registration),
             success: function(response) {
                 console.log("Success in user registration")
+				enableURL = "https://" + orgId + ".internetofthings.ibmcloud.com/dashboard/#/config-v2";
             },
             error: function(xhr, status, error) {
                 console.error("Error while user registration");
