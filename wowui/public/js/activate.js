@@ -47,8 +47,8 @@ function activateRedirectURL() {
 function configURL() {
     var enableURL = "/activate";
 
-    orgId = document.getElementById("orgID").value;
-    userName = document.getElementById("uname").value;
+    orgId     = document.getElementById("orgID").value;
+    userName  = document.getElementById("uname").value;
 	userEmail = document.getElementById("email").value;
 
     submitOK = true;
@@ -57,17 +57,22 @@ function configURL() {
         alert("Organization Name could not be empty");
         submitOK = false;
     }
-
-    if (orgId === "") {
+	
+	if (userName === "") {
         alert("User Name could not be empty");
         submitOK = false;
     }
 
+    if (userEmail === "") {
+        alert("User Email could not be empty");
+        submitOK = false;
+    }	
+
     if (submitOK) {
 
-        registration.username  = userName;
-        registration.orgid     = orgId;
-		registration.email     = userEmail;
+    registration.username = userName;
+    registration.orgid    = orgId;
+	registration.email    = userEmail;
 
         $.ajax({
             url: "/activate/iot",

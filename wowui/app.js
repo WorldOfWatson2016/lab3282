@@ -70,11 +70,13 @@ app.post('/activate/iot', function(req, res) {
 
     var uname = req.body.username;
     var orgid = req.body.orgid;
+	var email = req.body.email;
     var timestamp = new Date().getTime();
 
     var response = {
         "username": uname,
         "orgID": orgid,
+		"email":email,
         "timestamp": timestamp
     }
 
