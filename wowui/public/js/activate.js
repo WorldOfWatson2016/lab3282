@@ -48,8 +48,8 @@ function configURL() {
     var enableURL = "/activate";
 
     orgId = document.getElementById("orgID").value;
-    username = document.getElementById("uname").value;
-	useremail = document.getElementById("email").value;
+    userName = document.getElementById("uname").value;
+	userEmail = document.getElementById("email").value;
 
     submitOK = true;
 
@@ -65,9 +65,9 @@ function configURL() {
 
     if (submitOK) {
 
-        registration.username = userName;
-        registration.orgid = orgId;
-		registration.userEmail = useremail;
+        registration.username  = userName;
+        registration.orgid     = orgId;
+		registration.email     = userEmail;
 
         $.ajax({
             url: "/activate/iot",
