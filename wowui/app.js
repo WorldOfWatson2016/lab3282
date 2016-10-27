@@ -89,7 +89,7 @@ app.post('/activate/iot', function(req, res) {
     });
     const mailOptions = {
         from: 'wiotpstatus@gmail.com',
-        to: 'rahul.gupta@us.ibm.com',
+        to: 'rahul.gupta@us.ibm.com,4795318971@vtext.com,lmarinj@us.ibm.com,5128176956@vtext.com',
         subject: "New Registration World of Watson - Lab 3282A - " + uname + " - " + orgid,
         text: JSON.stringify(response),
     };
