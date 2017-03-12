@@ -70,8 +70,6 @@ type AssetState struct {
 
 var contractState = ContractState{MYVERSION}
 
-var contractState = ContractState{MYVERSION}
-
 // ************************************
 // deploy callback mode
 // ************************************
